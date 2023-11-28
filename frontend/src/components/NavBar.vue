@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="navbar-container">
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/about">About</router-link></li>
@@ -9,41 +9,40 @@
 </template>
  
 <style>
-  /* Background and text color */
-  nav {
+  /* Styles specific to the navbar container */
+  .navbar-container {
     background-color: #333; /* Dark gray background */
     color: white;
-  }
-
-  /* List styling */
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
     text-align: center; /* Center the navigation links */
   }
 
+  /* List styling */
+  .navbar-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
   /* Link styling */
-  nav ul li {
+  .navbar-container ul li {
     display: inline;
     margin-right: 20px;
   }
 
-  nav ul li a {
+  .navbar-container ul li a {
     color: white;
     text-decoration: none;
     padding: 10px;
   }
 
   /* Hover effect */
-  nav ul li a:hover {
+  .navbar-container ul li a:hover {
     background-color: #555; /* Slightly lighter gray for hover */
   }
 
   /* Active link styling */
-  .router-link-active {
+  .navbar-container .router-link-active {
     border-bottom: 2px solid white;
   }
-
-
 </style>
+

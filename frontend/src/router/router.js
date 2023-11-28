@@ -1,16 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/components/Home.vue';
-import About from '@/components/About.vue';
+import IndexPage from '../components/IndexPage.vue'; // Adjust the import path as needed.
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
-  // ... other routes
+  {
+    path: '/',
+    name: 'Home',
+    component: IndexPage
+  },
+  // ... more routes
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
+  history: createWebHistory(),
+  routes, // This is where the 'routes' array should be used.
 });
 
 export default router;

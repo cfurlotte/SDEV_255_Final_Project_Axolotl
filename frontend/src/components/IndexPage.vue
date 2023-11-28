@@ -44,10 +44,7 @@ export default {
 </script>
 
 <style>
-  div {
-    background-color: #f0f0f0; /* Light grey background */
-    padding: 20px; /* Padding around the content */
-  }
+
 
   header h4 {
     color: #333; /* Dark grey color for the header */
