@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router/router'; // Make sure the router file exists and is exported correctly
+import router from './router/router.js'; // Make sure the router file exists and is exported correctly
 
 // Vuetify
 import 'vuetify/styles';

@@ -1,72 +1,38 @@
 <template>
   <div>
+    <img src="Class.webp" style=" display: block;
+    margin-left: auto;
+    margin-right:auto;
+    width: 100%;
+    margin-bottom: -100%;" alt="">
     <header>
-      <h4>Courses Being Offered</h4>
+      <h2 style="font-size: 4rem; margin-bottom: -6%; top: 2rem;
+      color: rgb(255, 255, 255);
+      text-shadow: 2px 2px black;">Welcome To</h2>
     </header>
-    <v-card class="mx-auto">
-      <v-list :items="items" item-props lines="three">
-        <template v-slot:subtitle="{ subtitle }">
-          <div v-html="subtitle"></div>
-        </template>
-      </v-list>
-    </v-card>
+    <img src="Logo.png" style=" display: block;
+    margin-left: auto;
+    margin-right:auto;
+    width: 40%;
+    margin-bottom: -5%;" alt="Axolotl University Logo">
+    <h2 style="font-size: 4rem;  top: 2rem;
+      color: rgb(231, 122, 186); text-shadow: 2px 2px black;
+      margin-top: 0rem;">
+      A University for Axolotls by Axolotls
+    </h2>
+    <h2 style="color: rgb(98, 21, 134); font-size: 2rem; text-shadow: 0px 0px 3px white; text-align: center;">
+      Teaching the Great Axolotls of Tomorrow Today.
+      <br>
+      <br>
+      Read more about us <router-link to="/about">Here</router-link>.
+    </h2>
   </div>
 </template>
 
 <script>
-export default {
-  data: () => ({
-    items: [
-      // Removed the divider item, as it may be causing layout issues.
-      {
-        title: 'Math 101',
-        subtitle: 'A math class',
-        value: 1,
-      },
-      {
-        title: 'Math 201',
-        subtitle: 'A second math class',
-        value: 2,
-      },
-      {
-        title: 'SDEV 101',
-        subtitle: 'A SDEV class',
-        value: 3,
-      },
-      {
-        title: 'SDEV 201',
-        subtitle: 'A second SDEV class',
-        value: 4,
-      },
-    ],
-  }),
-}
+
 </script>
 
 <style>
-
-
-  header h4 {
-    color: #333; /* Dark grey color for the header */
-    text-align: center; /* Center-align the header text */
-    margin-bottom: 20px; /* Margin below the header */
-  }
-
-  .v-card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Adding a subtle shadow to the card */
-    transition: 0.3s; /* Smooth transition for hover effect */
-    margin-bottom: 20px; /* Spacing between cards */
-  }
-
-  .v-card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); /* Shadow effect on hover */
-  }
-
-  .v-list-item {
-    border-bottom: 1px solid #ddd; /* Border for each list item */
-  }
-
-  .v-list-item:last-child {
-    border-bottom: none; /* No border for the last item */
-  }
+  
 </style>
