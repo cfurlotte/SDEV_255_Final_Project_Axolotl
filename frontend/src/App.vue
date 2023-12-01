@@ -1,6 +1,7 @@
 
 <template>
   <div id=app>
+    <!--Displays the Nav, then the main webpage that is switched out, then the footer at the bottom of the page.-->
     <NavBar />
     <main>
       <RouterView />
@@ -23,32 +24,30 @@ export default {
 </script>
 
 <style>
+/*code that effects most of the website, changing this will have big changes*/
 /*body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-
+*/
+/*code to set the website to dark mode*/
+html {
+  background-color: #444;
+}
 main {
-  flex-grow: 100%;
-}*/
+  color: white;
+}
 
 h2 {
   padding-top: 2rem;
-  color: #333;
+  color: white;
   /* Dark grey color for the header */
   text-align: center;
   /* Center-align the header text */
   padding-bottom: 2rem;
 }
 
-h2 {
-  padding-top: 2rem;
-  color: #333;
-  /* Dark grey color for the header */
-  text-align: center;
-  /* Center-align the header text */
-}
 
 p {
   padding: 5rem;
@@ -62,7 +61,7 @@ p {
   padding-bottom: 0rem;
   width: 550px;
 }
-
+/*simple code to make the inputs display rite while on a mobile application*/
 @media only screen and (max-width: 600px) {
   .v-form {
     width: 350px;

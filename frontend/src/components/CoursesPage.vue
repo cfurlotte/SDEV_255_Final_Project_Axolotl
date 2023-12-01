@@ -4,10 +4,11 @@
             <h2>Courses Being Offered</h2>
         </header>
         <div class="padding">
-        <v-card class="mx-auto">
+            <!--Displays the courses-->
+        <v-card class="mx-auto" >
             <v-list :items="items" item-props lines="three">
                 <template v-slot:subtitle="{ subtitle }">
-                    <div v-html="subtitle"></div>
+                    <div v-html="subtitle" ></div>
                 </template>
             </v-list>
         </v-card>
@@ -16,28 +17,29 @@
 </template>
   
 <script>
+//needs to be pulling the courses from the back end.
 export default {
     data: () => ({
         items: [
             // Removed the divider item, as it may be causing layout issues.
             {
-                title: 'Math 101',
-                subtitle: 'A math class',
+                title: 'Swimming 101',
+                subtitle: 'How to swim',
                 value: 1,
             },
             {
-                title: 'Math 201',
-                subtitle: 'A second math class',
+                title: 'Swimming 201',
+                subtitle: 'A second swim class',
                 value: 2,
             },
             {
-                title: 'SDEV 101',
-                subtitle: 'A SDEV class',
+                title: 'Social Media 101',
+                subtitle: 'A class that will help you become famous',
                 value: 3,
             },
             {
-                title: 'SDEV 201',
-                subtitle: 'A second SDEV class',
+                title: 'Social Media 201',
+                subtitle: 'A second class that will help you become famous',
                 value: 4,
             },
         ],
@@ -54,6 +56,7 @@ export default {
 }
 
 .v-card {
+    
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     /* Adding a subtle shadow to the card */
     transition: 0.3s;

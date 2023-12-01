@@ -4,6 +4,7 @@
             Login
         </h2>
         <v-form>
+            <!--Login in for old users, does not currently do anything.-->
             <v-text-field
                 v-model="userName"
                 label="User Name"
@@ -24,6 +25,7 @@
         <h2 style="padding-top: 0rem;">
             Sign Up
         </h2>
+        <!--Sign up for new users, does not currently do anything-->
         <v-form>
             <v-text-field
                 v-model="firstName"

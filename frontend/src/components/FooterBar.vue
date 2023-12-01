@@ -1,6 +1,6 @@
 <template>
-    <div class="footer">
-        <p>Copyright © 2023 by The Axolotl Group</p>
+    <div class="footer" >
+        <p style="font-size: 1rem;">Copyright © 2023 by The Axolotl Group</p>
 
     </div>
 </template>
