@@ -17,33 +17,30 @@
 </template>
   
 <script>
-//needs to be pulling the courses from the back end.
+import axios from 'axios';
+
 export default {
-    data: () => ({
-        items: [
-            // Removed the divider item, as it may be causing layout issues.
-            {
-                title: 'Swimming 101',
-                subtitle: 'How to swim',
-                value: 1,
-            },
-            {
-                title: 'Swimming 201',
-                subtitle: 'A second swim class',
-                value: 2,
-            },
-            {
-                title: 'Social Media 101',
-                subtitle: 'A class that will help you become famous',
-                value: 3,
-            },
-            {
-                title: 'Social Media 201',
-                subtitle: 'A second class that will help you become famous',
-                value: 4,
-            },
-        ],
-    }),
+    data() {
+        return {
+            items: [], // This will hold the courses fetched from the backend
+        };
+    },
+    created() {
+        this.fetchCourses(); // Fetch courses when the component is created
+    },
+    methods: {
+        fetchCourses() {
+            // Replace with the actual endpoint of your backend API
+            axios.get('http://localhost:3000/api/courses')
+                .then(response => {
+                    // Assuming the response body will be an array of courses
+                    this.items = response.data;
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the courses:", error);
+                });
+        }
+    }
 }
 </script>
 
