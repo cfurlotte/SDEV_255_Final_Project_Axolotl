@@ -1,5 +1,5 @@
 # frontend
-
+# DO NOT FOLLOW BELLOW THIS LINE TO RUN, LOOK AT THE OTHER READ ME FILE ONE FOLDER UP TO RUN
 ## Project setup
 ```
 npm install
