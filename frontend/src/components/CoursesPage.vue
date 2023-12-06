@@ -1,23 +1,26 @@
 <template>
-    <div>
-        <header>
-            <h2>Courses Being Offered</h2>
-        </header>
-        <div class="padding">
-            <!--Displays the courses-->
-        <v-card class="mx-auto" >
-            <v-list :items="items" item-props lines="three">
-                <template v-slot:subtitle="{ subtitle }">
-                    <div v-html="subtitle" ></div>
-                </template>
-            </v-list>
-        </v-card>
-        </div>
+  <div>
+    <header>
+      <h2>Courses Being Offered</h2>
+    </header>
+    <div class="padding">
+      <!-- Button to add a new course -->
+      <v-btn @click="goToAddCoursePage">Add a Course</v-btn>
+      <!--Displays the courses-->
+      <v-card class="mx-auto">
+        <v-list :items="items" item-props lines="three">
+          <template v-slot:subtitle="{ subtitle }">
+            <div v-html="subtitle"></div>
+          </template>
+        </v-list>
+      </v-card>
     </div>
+  </div>
 </template>
-  
+
 <script>
 import axios from 'axios';
+// Import the router if you need to navigate
 
 export default {
     data() {
@@ -30,19 +33,23 @@ export default {
     },
     methods: {
         fetchCourses() {
-            // Replace with the actual endpoint of your backend API
-            axios.get('http://localhost:3000/api/courses')
+            axios.get('http://localhost:3000/courses')
                 .then(response => {
-                    // Assuming the response body will be an array of courses
                     this.items = response.data;
                 })
                 .catch(error => {
                     console.error("There was an error fetching the courses:", error);
                 });
+        },
+        goToAddCoursePage() {
+            // Logic to navigate to the Add Course page or display the form
+            // If you are using Vue Router, you can navigate like this:
+            this.$router.push({ name: 'CreateCourse' }); // Use the actual route name
         }
     }
 }
 </script>
+
 
 <style>
 
@@ -75,4 +82,10 @@ export default {
 .v-list-item:last-child {
     border-bottom: none;
     /* No border for the last item */
-}</style>
+
+}
+.v-btn {
+
+}
+
+</style>

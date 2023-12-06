@@ -79,7 +79,19 @@
 </template>
 
 <script>
-
+export default {
+  data() {
+    return {
+      userName: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      reenterPassword: ''
+    };
+  },
+  // methods, etc.
+};
 </script>
 <style>
 

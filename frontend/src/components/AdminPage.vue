@@ -41,8 +41,49 @@
 </template>
 
 <script>
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      courseName: '',
+      courseDescription: '',
+      courseSubject: '',
+      courseCreditHours: ''
+    };
+  },
+  methods: {
+    submitCourse() {
+      const courseData = {
+        name: this.courseName,
+        description: this.courseDescription,
+        subject: this.courseSubject,
+        creditHours: this.courseCreditHours
+      };
+      axios.post('http://localhost:3000/courses', courseData)
+        .then(() => {
+          // Success feedback, e.g. clear form, show message, etc.
+          this.clearForm();
+          alert('Course successfully added!');
+          // Optionally, redirect or update the view
+        })
+        .catch(error => {
+          // Error feedback
+          console.error('Failed to add course:', error);
+          alert('Failed to add course.');
+        });
+    },
+    clearForm() {
+      this.courseName = '';
+      this.courseDescription = '';
+      this.courseSubject = '';
+      this.courseCreditHours = '';
+    }
+  }
+};
 </script>
-<style>
 
+<!-- Add styles if needed -->
+<style>
+/* ... */
 </style>
