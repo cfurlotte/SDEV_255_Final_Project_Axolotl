@@ -1,13 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb');
+require('dotenv').config();
+console.log(process.env.MONGO_URI);
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // MongoDB URI and Client
-const uri =  "mongodb+srv://avaquera:Missymuffinmiley4@cluster0.khwgmbd.mongodb.net/?retryWrites=true&w=majority"; // Replace with your MongoDB URI
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 
 // Database Name
