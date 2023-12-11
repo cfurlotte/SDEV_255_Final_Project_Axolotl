@@ -5,7 +5,6 @@
     </header>
     <div class="padding">
       <!-- Button to add a new course -->
-      <v-btn @click="goToAddCoursePage">Add a Course</v-btn>
       <!--Displays the courses-->
       <v-card class="mx-auto">
         <v-list :items="items" item-props lines="three">
@@ -25,7 +24,11 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            items: [], // This will hold the courses fetched from the backend
+            items: [ { title: 'Test',
+                      subtitle: 'Test 2'}, 
+                    {title: 'Test title',
+                      subtitle: 'Test text'},
+                    ], // This will hold the courses fetched from the backend
         };
     },
     created() {
@@ -40,11 +43,6 @@ export default {
                 .catch(error => {
                     console.error("There was an error fetching the courses:", error);
                 });
-        },
-        goToAddCoursePage() {
-            // Logic to navigate to the Add Course page or display the form
-            // If you are using Vue Router, you can navigate like this:
-            this.$router.push({ name: 'CreateCourse' }); // Use the actual route name
         }
     }
 }

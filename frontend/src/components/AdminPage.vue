@@ -33,6 +33,11 @@
                 required
                 >
             </v-text-field>
+            <v-btn 
+                @click="submitCourse"
+                >
+                Submit
+            </v-btn>
         </v-form>>
         
         <!--I cant think what is needed for the front end of deleting a course-->

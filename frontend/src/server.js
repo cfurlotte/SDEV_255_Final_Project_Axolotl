@@ -32,20 +32,20 @@ async function main() {
         });
 
         // CREATE: Add a new course
-        
+
         // UPDATE: Update a course by ID
         app.post('/courses', async (req, res) => {
-          const newCourse = req.body;
-          try {
-            const result = await coursesCollection.insertOne(newCourse);
-            const insertedCourse = await coursesCollection.findOne({ _id: result.insertedId });
-            res.status(201).json(insertedCourse);
-          } catch (error) {
-            console.error('Failed to insert course:', error);
-            res.status(500).send('Error inserting the course');
-          }
+            const newCourse = req.body;
+            try {
+                const result = await coursesCollection.insertOne(newCourse);
+                const insertedCourse = await coursesCollection.findOne({ _id: result.insertedId });
+                res.status(201).json(insertedCourse);
+            } catch (error) {
+                console.error('Failed to insert course:', error);
+                res.status(500).send('Error inserting the course');
+            }
         });
-        
+
 
         // DELETE: Delete a course by ID
         app.delete('/courses/:id', async (req, res) => {
