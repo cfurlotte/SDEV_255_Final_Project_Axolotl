@@ -14,6 +14,15 @@
 import NavBar from './components/NavBar.vue';
 import FooterBar from './components/FooterBar.vue'
 
+import { createVuetify } from 'vuetify'
+
+export const vuetify = createVuetify({
+  theme: {
+    defaultTheme: 'dark',
+    //
+  },
+})
+
 export default {
   name: 'App',
   components: {
@@ -24,6 +33,9 @@ export default {
 </script>
 
 <style>
+.mx-auto {
+  background-color: #444;
+}
 /*code that effects most of the website, changing this will have big changes*/
 /*body {
   display: flex;

@@ -6,12 +6,22 @@
     <div class="padding">
       <!-- Button to add a new course -->
       <!--Displays the courses-->
-      <v-card class="mx-auto">
-        <v-list :items="items" item-props lines="three">
+      <v-card class="mx-auto" >
+        <v-list v-for="(item, index) in items" :key="index">
+              <v-list-item-content>
+                <v-list-item-title class="list">{{ item.name }}</v-list-item-title>
+                <v-list-item-subtitle>
+                  <div class="list"><strong>Subject:</strong> {{ item.subject }} </div>
+                  <div class="list"><strong>Credit Hours:</strong> {{ item.creditHours }}</div>
+                  <div class="list"><strong>Description:</strong> {{ item.description }}</div>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list>
+        <!--<v-list :items="items" item-props lines="three">
           <template v-slot:subtitle="{ subtitle }">
             <div v-html="subtitle"></div>
           </template>
-        </v-list>
+        </v-list>-->
       </v-card>
     </div>
   </div>
@@ -21,7 +31,10 @@
 import axios from 'axios';
 // Import the router if you need to navigate
 
+
 export default {
+
+
   data() {
     return {
       items: [
@@ -47,6 +60,13 @@ export default {
 
 
 <style>
+.list {
+  
+  margin: 0.25rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .padding {
   padding: 5rem;
   padding-top: 0rem;
