@@ -22,68 +22,62 @@ import axios from 'axios';
 // Import the router if you need to navigate
 
 export default {
-    data() {
-        return {
-            items: [ { title: 'Test',
-                      subtitle: 'Test 2'}, 
-                    {title: 'Test title',
-                      subtitle: 'Test text'},
-                    ], // This will hold the courses fetched from the backend
-        };
-    },
-    created() {
-        this.fetchCourses(); // Fetch courses when the component is created
-    },
-    methods: {
-        fetchCourses() {
-            axios.get('http://localhost:3000/courses')
-                .then(response => {
-                    this.items = response.data;
-                })
-                .catch(error => {
-                    console.error("There was an error fetching the courses:", error);
-                });
-        }
+  data() {
+    return {
+      items: [
+      ], // This will hold the courses fetched from the backend
+    };
+  },
+  created() {
+    this.fetchCourses(); // Fetch courses when the component is created
+  },
+  methods: {
+    fetchCourses() {
+    axios.get('http://localhost:3000/courses')
+        .then(response => {
+          this.items = response.data;
+        })
+        .catch(error => {
+          console.error("There was an error fetching the courses:", error);
+        });
     }
+  }
 }
 </script>
 
 
 <style>
-
 .padding {
-    padding: 5rem;
-    padding-top: 0rem;
-    padding-bottom: 2rem;
+  padding: 5rem;
+  padding-top: 0rem;
+  padding-bottom: 2rem;
 }
 
 .v-card {
-    
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    /* Adding a subtle shadow to the card */
-    transition: 0.3s;
-    /* Smooth transition for hover effect */
-    margin-bottom: 20px;
-    /* Spacing between cards */
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* Adding a subtle shadow to the card */
+  transition: 0.3s;
+  /* Smooth transition for hover effect */
+  margin-bottom: 20px;
+  /* Spacing between cards */
 }
 
 .v-card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
-    /* Shadow effect on hover */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  /* Shadow effect on hover */
 }
 
 .v-list-item {
-    border-bottom: 1px solid #ddd;
-    /* Border for each list item */
+  border-bottom: 1px solid #ddd;
+  /* Border for each list item */
 }
 
 .v-list-item:last-child {
-    border-bottom: none;
-    /* No border for the last item */
-
-}
-.v-btn {
+  border-bottom: none;
+  /* No border for the last item */
 
 }
 
+.v-btn {}
 </style>
