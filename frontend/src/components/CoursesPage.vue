@@ -4,7 +4,6 @@
       <h2>Courses Being Offered</h2>
     </header>
     <div class="padding">
-      <!-- Button to add a new course -->
       <!--Displays the courses-->
       <v-card class="mx-auto" >
         <v-list v-for="(item, index) in items" :key="index">
