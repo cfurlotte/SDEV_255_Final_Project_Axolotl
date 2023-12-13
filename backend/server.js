@@ -10,28 +10,35 @@ let items = [{
     name: "Swimming 101",
     subject: "Swim",
     creditHours: 3,
-    description: "Learn the basics of how to swim."
+    description: "Learn the basics of how to swim.",
+    id: '001',
 },
 {
     name: "Swimming 201",
     subject: "Swim",
     creditHours: 3,
-    description: "Learn advance swimming skills"
+    description: "Learn advance swimming skills",
+    id: '002',
 },
 {
     name: "Social Media 101",
     subject: "Social",
     creditHours: 3,
     description: "Learn the basics of growing your brand and personal image."
+    ,
+    id: '003',
 },
 {
     name: "Social Media 201",
     subject: "Social",
     creditHours: 3,
     description: "Learn the advance parts of growing your brand and personal image."
+    ,
+    id: '004',
 }
 ]
-
+//keep track of ID
+let id = 101
 app.use(bodyParser.json());
 
 app.get('/courses', (req, res) => {
@@ -40,7 +47,8 @@ app.get('/courses', (req, res) => {
 //gets a new course
 app.post('/courses', (req, res) => {
     let newCourse = req.body
-
+    id += 1
+    newCourse.id = id
     items.push(newCourse)
     console.log(newCourse)
     console.log('course added')
@@ -58,15 +66,15 @@ app.delete('/courses/:name', (req, res) => {
     }
 });
 //edit the course
-app.put('/courses/:name', (req, res) => {
+app.put('/courses/:id', (req, res) => {
     console.log('got')
-    const courseName = req.params.name;
+    const courseId = req.params.id;
     const updatedCourse = req.body;
-    const index = items.findIndex(c => c.name === courseName);
+    const index = items.findIndex(c => c.id === courseId);
 
     if (index > -1) {
         items[index] = updatedCourse;
-        res.send(`Course '${courseName}' updated successfully`);
+        res.send(`Course '${courseId}' updated successfully`);
     } else {
         res.status(404).send('Course not found');
     }

@@ -50,10 +50,11 @@
         <br>
         <button @click="showEditForm = false">Cancel</button>
         <br>
-        <label style="margin: 1rem;"></label>
+        
       </form>
     </div>
   </div>
+  <label style="margin: 1rem;"></label>
 </template>
 
 <script>
@@ -134,7 +135,7 @@ export default {
     },
 
     updateCourse() {
-      axios.put(`http://localhost:3000/courses/${this.editCourse.name}`, this.editCourse)
+      axios.put(`http://localhost:3000/courses/${this.editCourse.id}`, this.editCourse)
         .then(() => {
           this.fetchCourses(); // Refresh the list after updating
           this.showEditForm = false; // Hide the edit form/modal
