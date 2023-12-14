@@ -1,5 +1,13 @@
 <template>
-  <div>
+  <div v-if="!isLoggedIn">
+    <h2>Login</h2>
+    <form @submit.prevent="login">
+      <input v-model="username" placeholder="Username" required />
+      <input type="password" v-model="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <div v-else-if="isLoggedIn && isAdmin">
     <h2>
       Add a course
     </h2>
@@ -72,6 +80,14 @@ export default {
       ],
       editCourse: {},
       showEditForm: false,
+      username: '',
+      password: '',
+      isLoggedIn: false,
+      isAdmin: false,
+      adminCredentials: {
+        username: 'admin', 
+        password: '12345' 
+      }
     };
 
 
@@ -143,6 +159,19 @@ export default {
         .catch(error => {
           console.error("There was an error updating the course:", error);
         });
+    },
+    login() {
+      if (this.username === this.adminCredentials.username && this.password === this.adminCredentials.password) {
+        this.isLoggedIn = true;
+        this.isAdmin = true;
+        // Clear form fields
+        this.username = '';
+        this.password = '';
+      } else {
+        alert('Invalid credentials');
+        // Optionally, clear password field
+        this.password = '';
+      }
     }
   },
 };
