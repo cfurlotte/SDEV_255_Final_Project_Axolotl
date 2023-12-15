@@ -68,7 +68,6 @@ app.delete('/courses/:name', (req, res) => {
 });
 //edit the course
 app.put('/courses/:id', (req, res) => {
-    console.log('got')
     const courseId = req.params.id;
     const updatedCourse = req.body;
     const index = items.findIndex(c => c.id === courseId);
