@@ -1,82 +1,65 @@
 <template>
     <div>
-        <h2>
-            Login
-        </h2>
-        <v-form>
-            <!--Login in for old users, does not currently do anything.-->
+        <h2>Login</h2>
+        <v-form @submit.prevent="loginUser">
             <v-text-field
-                v-model="userName"
+                v-model="loginForm.userName"
                 label="User Name"
                 placeholder="Enter your user name"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-text-field
-                v-model="password"
+                v-model="loginForm.password"
                 label="Password"
                 placeholder="Enter your password"
                 type="password"
-                required>
-                
-
-            </v-text-field>
-            <v-btn type="submit" color="primary">login</v-btn>
-        </v-form>>
-        <h2 style="padding-top: 0rem;">
-            Sign Up
-        </h2>
-        <!--Sign up for new users, does not currently do anything-->
-        <v-form>
+                required
+            ></v-text-field>
+            <v-btn type="submit" color="primary">Login</v-btn>
+        </v-form>
+        <h2 style="padding-top: 0rem;">Sign Up</h2>
+        <v-form @submit.prevent="signUpUser">
             <v-text-field
-                v-model="firstName"
+                v-model="signUpForm.firstName"
                 label="First Name"
-                placeholder="Enter your user name"
+                placeholder="Enter your first name"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-text-field
-                v-model="lastName"
+                v-model="signUpForm.lastName"
                 label="Last Name"
-                placeholder="Enter your user name"
+                placeholder="Enter your last name"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-text-field
-                v-model="userName"
+                v-model="signUpForm.userName"
                 label="User Name"
                 placeholder="Enter your user name"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-text-field
-                v-model="email"
+                v-model="signUpForm.email"
                 label="Email"
                 placeholder="Enter your email"
                 type="email"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-text-field
-                v-model="password"
+                v-model="signUpForm.password"
                 label="Password"
                 placeholder="Enter your password"
                 type="password"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-text-field
-                v-model="reenterPassword"
+                v-model="signUpForm.reenterPassword"
                 label="Reenter Password"
                 placeholder="Reenter your password"
                 type="password"
                 required
-                >
-            </v-text-field>
+            ></v-text-field>
             <v-btn type="submit" color="primary">Sign Up</v-btn>
-        </v-form>>
-        
-
+        </v-form>
     </div>
 </template>
 
@@ -84,54 +67,51 @@
 import axios from 'axios';
 
 export default {
-  data() {
-    return {
-      loginForm: {
-        userName: '',
-        password: '',
-      },
-      signUpForm: {
-        firstName: '',
-        lastName: '',
-        userName: '',
-        email: '',
-        password: '',
-        reenterPassword: ''
-      }
-    };
-  },
-  methods: {
-    loginUser() {
-      // Implement login logic here
-      axios.post('/api/login', this.loginForm)
-        .then(response => {
-          // Handle successful login
-          console.log(response.data);
-          // You would typically store the token in local storage and redirect the user
-        })
-        .catch(error => {
-          console.error('Login failed:', error.response.data);
-        });
+    data() {
+        return {
+            loginForm: {
+                userName: '',
+                password: '',
+            },
+            signUpForm: {
+                firstName: '',
+                lastName: '',
+                userName: '',
+                email: '',
+                password: '',
+                reenterPassword: ''
+            }
+        };
     },
-    signUpUser() {
-      // Implement sign-up logic here
-      if (this.signUpForm.password !== this.signUpForm.reenterPassword) {
-        alert('Passwords do not match!');
-        return;
-      }
-      axios.post('/api/signup', this.signUpForm)
-        .then(response => {
-          // Handle successful sign-up
-          console.log(response.data);
-          // Redirect user or clear form
-        })
-        .catch(error => {
-          console.error('Sign-up failed:', error.response.data);
-        });
+    methods: {
+        loginUser() {
+            axios.post('http://localhost:3000/api/login', this.loginForm)
+                .then(response => {
+                    console.log(response.data);
+                    // Redirect or change state
+                })
+                .catch(error => {
+                    console.error('Login failed:', error.response.data);
+                });
+        },
+        signUpUser() {
+            if (this.signUpForm.password !== this.signUpForm.reenterPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            axios.post('http://localhost:3000/api/signup', this.signUpForm)
+                .then(response => {
+                    console.log(response.data);
+                    // Redirect or clear form
+                })
+                .catch(error => {
+                    console.error('Sign-up failed:', error.response.data);
+                });
+        }
     }
-  }
 };
 </script>
-<style>
 
+<style>
+/* Your styles here */
 </style>

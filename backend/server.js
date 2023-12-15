@@ -1,107 +1,98 @@
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
+const express = require('express');
+const cors = require('cors');
+const { MongoClient, ObjectId } = require('mongodb');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const app = express()
-const port = 3000
+require('dotenv').config();
 
-app.use(cors())
-// store courses in a array called items
-let items = [{
-    name: "Swimming 101",
-    subject: "Swim",
-    creditHours: 3,
-    description: "Learn the basics of how to swim.",
-    id: '001',
-},
-{
-    name: "Swimming 201",
-    subject: "Swim",
-    creditHours: 3,
-    description: "Learn advance swimming skills",
-    id: '002',
-},
-{
-    name: "Social Media 101",
-    subject: "Social",
-    creditHours: 3,
-    description: "Learn the basics of growing your brand and personal image."
-    ,
-    id: '003',
-},
-{
-    name: "Social Media 201",
-    subject: "Social",
-    creditHours: 3,
-    description: "Learn the advance parts of growing your brand and personal image."
-    ,
-    id: '004',
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// MongoDB URI and Client
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri);
+
+// Database Name
+const dbName = 'Cluster0';
+
+async function main() {
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        console.log("Connected to MongoDB");
+
+        // Reference to your database and collection
+        const db = client.db(dbName);
+        const coursesCollection = db.collection('courses');
+        const usersCollection = db.collection('users');
+
+        // READ: Get all courses
+        app.get('/courses', async (req, res) => {
+            const courses = await coursesCollection.find().toArray();
+            res.json(courses);
+        });
+
+        // CREATE: Add a new course
+        app.post('/courses', async (req, res) => {
+            const newCourse = req.body;
+            try {
+                const result = await coursesCollection.insertOne(newCourse);
+                const insertedCourse = await coursesCollection.findOne({ _id: result.insertedId });
+                res.status(201).json(insertedCourse);
+            } catch (error) {
+                console.error('Failed to insert course:', error);
+                res.status(500).send('Error inserting the course');
+            }
+        });
+
+        // DELETE: Delete a course by ID
+        app.delete('/courses/:id', async (req, res) => {
+            const id = req.params.id;
+            const result = await coursesCollection.deleteOne({ _id: ObjectId(id) });
+            if (result.deletedCount === 1) {
+                res.status(204).send();
+            } else {
+                res.status(404).send('Course not found');
+            }
+        });
+
+        // User Signup
+        app.post('/api/signup', async (req, res) => {
+            try {
+                const { firstName, lastName, userName, email, password } = req.body;
+                const hashedPassword = await bcrypt.hash(password, 10);
+                await usersCollection.insertOne({ firstName, lastName, userName, email, password: hashedPassword });
+                res.status(201).send('User registered successfully');
+            } catch (error) {
+                console.error('Signup error:', error);
+                res.status(500).send('Error registering new user');
+            }
+        });
+
+        // User Login
+        app.post('/api/login', async (req, res) => {
+            try {
+                const { userName, password } = req.body;
+                const user = await usersCollection.findOne({ userName });
+                if (user && await bcrypt.compare(password, user.password)) {
+                    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                    res.json({ token });
+                } else {
+                    res.status(401).send('Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                res.status(500).send('Error logging in user');
+            }
+        });
+
+    } finally {
+        // client.close(); // Optional: Depends on your use case
+    }
 }
-]
-//keep track of ID
-let id = 101
-app.use(bodyParser.json());
 
-app.get('/courses', (req, res) => {
-    res.send(items)
-})
-//gets a new course
-app.post('/courses', (req, res) => {
-    let newCourse = req.body
-    id += 1
-    newCourse.id = id
-    items.push(newCourse)
-    console.log(newCourse)
-    console.log('course added')
-})
-//delete the course
-app.delete('/courses/:name', (req, res) => {
-    const courseName = req.params.name;
-    const index = items.findIndex(c => c.name === courseName);
+main().catch(console.error);
 
-    if (index > -1) {
-        items.splice(index, 1);
-        res.send(`Course '${courseName}' deleted successfully`);
-    } else {
-        res.status(404).send('Course not found');
-    }
-});
-//edit the course
-app.put('/courses/:id', (req, res) => {
-    const courseId = req.params.id;
-    const updatedCourse = req.body;
-    const index = items.findIndex(c => c.id === courseId);
-
-    if (index > -1) {
-        items[index] = updatedCourse;
-        res.send(`Course '${courseId}' updated successfully`);
-    } else {
-        res.status(404).send('Course not found');
-    }
-});
-// register
-app.post('/register', (req, res) => {
-    const { firstName, lastName, userName, email, password } = req.body;
-
-    const newUser = { firstName, lastName, userName, email, password }; // In real applications, you should hash the password
-    users.push(newUser);
-    res.status(201).send('User registered successfully');
-});
-
-app.post('/login', (req, res) => {
-    const { userName, password } = req.body;
-    const user = users.find(u => u.userName === userName && u.password === password);
-
-    if (user) {
-        const token = jwt.sign({ userId: user.userName }, 'yourSecretKey'); // Replace 'yourSecretKey' with a real secret key
-        res.json({ token });
-    } else {
-        res.status(401).send('Invalid credentials');
-    }
-});
-
-
-app.listen(port, () => {
-    console.log('app running')
-})
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
