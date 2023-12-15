@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken');
 const app = express()
 const port = 3000
 
@@ -79,6 +80,27 @@ app.put('/courses/:id', (req, res) => {
         res.status(404).send('Course not found');
     }
 });
+// register
+app.post('/register', (req, res) => {
+    const { firstName, lastName, userName, email, password } = req.body;
+
+    const newUser = { firstName, lastName, userName, email, password }; // In real applications, you should hash the password
+    users.push(newUser);
+    res.status(201).send('User registered successfully');
+});
+
+app.post('/login', (req, res) => {
+    const { userName, password } = req.body;
+    const user = users.find(u => u.userName === userName && u.password === password);
+
+    if (user) {
+        const token = jwt.sign({ userId: user.userName }, 'yourSecretKey'); // Replace 'yourSecretKey' with a real secret key
+        res.json({ token });
+    } else {
+        res.status(401).send('Invalid credentials');
+    }
+});
+
 
 app.listen(port, () => {
     console.log('app running')
