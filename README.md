@@ -28,3 +28,15 @@ npm install
 7. run the backend server
 
 nodemon server.js
+
+# Login Information
+
+Student Login
+
+Name: Student
+Password: 12345
+
+Admin Login
+
+Name: Admin
+Password: 12345
