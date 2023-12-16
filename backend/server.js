@@ -79,6 +79,18 @@ app.put('/courses/:id', (req, res) => {
     }
 });
 
+let studentCourses = []; // Array to store student courses
+
+app.post('/student/courses', (req, res) => {
+    studentCourses = req.body;
+    res.send('Student courses updated successfully');
+});
+
+app.get('/student/courses', (req, res) => {
+    res.send(studentCourses);
+});
+
+
 app.listen(port, () => {
     console.log('app running')
 })

@@ -57,25 +57,9 @@ export default {
     },
     created() {
         this.fetchCourses(); // Fetch courses when the component is created
+        this.fetchStudentCourses()
     },
     methods: {
-        enrollCourse(course) {
-            if (!this.studentCourses.some(c => c.name === course.name)) {
-                this.studentCourses.push(course);
-                alert('Enrolled in course successfully');
-            } else {
-                alert('Already enrolled in this course');
-            }
-        },
-
-        dropCourse(courseName) {
-            const index = this.studentCourses.findIndex(c => c.name === courseName);
-            if (index > -1) {
-                this.studentCourses.splice(index, 1);
-                alert('Dropped course successfully');
-            }
-        },
-        
         //gets the courses to display the name of the course for editing or deleting
         fetchCourses() {
             axios.get('http://localhost:3000/courses')
@@ -98,6 +82,43 @@ export default {
                 this.password = '';
             }
         },
+
+        fetchStudentCourses() {
+            axios.get('http://localhost:3000/student/courses')
+                .then(response => {
+                    this.studentCourses = response.data;
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the student's courses:", error);
+                });
+        },
+
+        enrollCourse(course) {
+            if (!this.studentCourses.some(c => c.name === course.name)) {
+                this.studentCourses.push(course);
+                this.updateStudentCourses();
+                alert('Enrolled in course successfully');
+            } else {
+                alert('Already enrolled in this course');
+            }
+        },
+
+        dropCourse(courseName) {
+            const index = this.studentCourses.findIndex(c => c.name === courseName);
+            if (index > -1) {
+                this.studentCourses.splice(index, 1);
+                this.updateStudentCourses();
+                alert('Dropped course successfully');
+            }
+        },
+
+        updateStudentCourses() {
+            axios.post('http://localhost:3000/student/courses', this.studentCourses)
+                .catch(error => {
+                    console.error("There was an error updating student courses:", error);
+                });
+        },
+
 
     },
 };
