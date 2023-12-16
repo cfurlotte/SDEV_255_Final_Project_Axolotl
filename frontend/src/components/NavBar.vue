@@ -4,7 +4,8 @@
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/about">About</router-link></li>
       <li><router-link to ="/courses">Courses</router-link></li>
-      <li><router-link to="/log-in">Log In</router-link></li>
+      <!--<li><router-link to="/log-in">Log In</router-link></li>-->
+      <li><router-link to="/student">Student</router-link></li>
       <li><router-link to="/admin">Admin</router-link></li>
       <!-- Add more links as needed -->
     </ul>

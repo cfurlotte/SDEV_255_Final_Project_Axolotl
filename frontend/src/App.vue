@@ -31,8 +31,11 @@ export default {
   }
 }
 </script>
-
 <style>
+.shrink {
+  width: 550px;
+}
+
 .mx-auto {
   background-color: #444;
 }

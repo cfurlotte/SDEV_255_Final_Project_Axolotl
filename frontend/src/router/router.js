@@ -5,6 +5,7 @@ import CoursesPage from '../components/CoursesPage.vue'
 import LogIn from '../components/LogIn.vue'
 import AdminPage from '../components/AdminPage.vue'
 import CourseCreate from '../components/CourseCreate.vue';
+import StudentPage from '../components/StudentPage.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path:'/courses/create',
     name: 'CreateCourse',
     component: CourseCreate
+  },
+  {
+    path:'/student',
+    name: 'Student',
+    component: StudentPage
   }
   // ... more routes
 ];

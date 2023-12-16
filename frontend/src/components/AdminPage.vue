@@ -1,11 +1,17 @@
 <template>
   <div v-if="!isLoggedIn">
-    <h2>Login</h2>
-    <form @submit.prevent="login">
-      <input v-model="username" placeholder="Username" required />
-      <input type="password" v-model="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
+    <h2>Admin Login</h2>
+    <v-form @submit.prevent="login">
+        <v-text-field v-model="username" label="Course Name" placeholder="Username" required>
+        </v-text-field>
+        <v-text-field type="password" v-model="password" label="Password"
+          placeholder="Password" required>
+      </v-text-field>
+        <v-btn type="submit" color="#555">
+          Login
+        </v-btn>
+      </v-form>
+
   </div>
   <div v-else-if="isLoggedIn && isAdmin">
     <h2>
@@ -24,42 +30,38 @@
       <v-text-field v-model="courseCreditHours" label="Course Credit Hours"
         placeholder="Enter the number of credit hours the course is worth here" required>
       </v-text-field>
-      <v-btn @click="submitCourse">
+      <v-btn @click="submitCourse"  color="#555">
         Submit
       </v-btn>
     </v-form>>
 
-    <v-list v-for="(item, index) in items" :key="index" class="list">
-      <v-list-item-title class="list">{{ item.name }}</v-list-item-title>
-      <v-btn @click="deleteCourse(item.name)">Delete</v-btn>
-      <v-btn @click="openEditForm(item)">Edit</v-btn>
+    <v-list v-for="(item, index) in items" :key="index" class="list shrink" style="margin: auto;" color="#555">
+      <v-list-item-title class="list" color="#555">{{ item.name }}</v-list-item-title>
+      <v-btn @click="deleteCourse(item.name)" color="#333">Delete</v-btn>
+      <v-btn @click="openEditForm(item)" color="#333">Edit</v-btn>
     </v-list>
     <!--Html for updating classes, only shows when classes are meant to be updated-->
-    <div v-if="showEditForm" class="modal">
-      <h3>Edit Course</h3>
-      <form @submit.prevent="updateCourse">
-        <div>
-          <label>Name:</label>
-          <input v-model="editCourse.name" required />
-        </div>
-        <div>
-          <label>Subject:</label>
-          <input v-model="editCourse.subject" required />
-        </div>
-        <div>
-          <label>Credit Hours:</label>
-          <input v-model="editCourse.creditHours" required />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea v-model="editCourse.description" required></textarea>
-        </div>
-        <button type="submit" @click="updateCourse">Save Changes</button>
-        <br>
-        <button @click="showEditForm = false">Cancel</button>
-        <br>
-        
-      </form>
+    <div v-if="showEditForm" class="modal padding">
+      <h2>Edit Course</h2>
+      <v-form>
+        <v-text-field v-model="editCourse.name" label="Course Name" placeholder="Enter the Course Name" required>
+        </v-text-field>
+        <v-text-field v-model="editCourse.subject" label="Course Description"
+          placeholder="Enter a description of the course here" required>
+        </v-text-field>
+        <v-text-field v-model="editCourse.creditHours" label="Course Subject" placeholder="Enter the subject of the course here"
+          required>
+        </v-text-field>
+        <v-text-field v-model="editCourse.description" label="Course Credit Hours"
+          placeholder="Enter the number of credit hours the course is worth here" required>
+        </v-text-field>
+        <v-btn @click="updateCourse" color="#555">
+          Save Changes
+        </v-btn>
+        <v-btn @click="showEditForm" color="#555">
+          Cancel
+        </v-btn>
+      </v-form>
     </div>
   </div>
   <label style="margin: 1rem;"></label>
@@ -85,8 +87,8 @@ export default {
       isLoggedIn: false,
       isAdmin: false,
       adminCredentials: {
-        username: 'admin', 
-        password: '12345' 
+        username: 'admin',
+        password: '12345'
       }
     };
 
@@ -136,7 +138,7 @@ export default {
           console.error("There was an error deleting the course:", error);
         });
     },
-    
+
     clearForm() {
       this.courseName = '';
       this.courseDescription = '';

@@ -98,5 +98,4 @@ export default {
 
 }
 
-.v-btn {}
 </style>
