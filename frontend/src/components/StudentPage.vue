@@ -2,7 +2,7 @@
     <div v-if="!isLoggedIn">
         <h2>Student Login</h2>
         <v-form @submit.prevent="login">
-            <v-text-field v-model="username" label="Course Name" placeholder="Username" required>
+            <v-text-field v-model="username" label="Name" placeholder="Username" required>
             </v-text-field>
             <v-text-field type="password" v-model="password" label="Password" placeholder="Password" required>
             </v-text-field>
