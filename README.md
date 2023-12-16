@@ -14,3 +14,17 @@ npm install
 3. run program on a local server
 
 npm run serve
+
+4. Open terminal
+
+5. Go into the backend folder
+
+cd backend
+
+6. install dependencies
+
+npm install
+
+7. run the backend server
+
+nodemon server.js
